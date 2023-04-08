@@ -48,9 +48,9 @@ resource "aws_security_group" "postgres" {
   vpc_id      = aws_vpc.example.id
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
     security_groups = [aws_security_group.nginx.id] # Allow only the Nginx web server to access the database
   }
 }

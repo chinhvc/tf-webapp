@@ -48,9 +48,9 @@ resource "aws_security_group" "postgres" {
   vpc_id      = aws_vpc.example.id
 
   ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
     security_groups = [aws_security_group.nginx.id] # Allow only the Nginx web server to access the database
   }
 }
@@ -82,16 +82,16 @@ resource "aws_db_subnet_group" "example" {
 # }
 
 resource "aws_db_instance" "private_db" {
-  allocated_storage    = var.db_allocated_storage
-  engine               = var.db_engine
-  engine_version       = var.db_engine_version
-  instance_class       = var.db_instance_class
-  name                 = var.db_name
-  username             = var.db_username
-  password             = var.db_password
+  allocated_storage      = var.db_allocated_storage
+  engine                 = var.db_engine
+  engine_version         = var.db_engine_version
+  instance_class         = var.db_instance_class
+  name                   = var.db_name
+  username               = var.db_username
+  password               = var.db_password
   vpc_security_group_ids = [aws_security_group.private_db.id]
-  subnet_group_name    = aws_db_subnet_group.private_db_subnet_group.name
-  db_subnet_group_name = aws_db_subnet_group.example.name
-  multi_az             = false
-  publicly_accessible  = false
+  subnet_group_name      = aws_db_subnet_group.private_db_subnet_group.name
+  db_subnet_group_name   = aws_db_subnet_group.example.name
+  multi_az               = false
+  publicly_accessible    = false
 }
