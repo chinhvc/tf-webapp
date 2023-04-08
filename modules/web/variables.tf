@@ -6,6 +6,20 @@ variable "public_subnet_id" {
   description = "The public subnet ID for the web app."
 }
 
+variable "instance_count" {
+  description = "The number of Nginx web server instances to create"
+  type        = number
+  default     = 1
+}
+
+variable "instances" {
+  description = "A map of instances with their names and types"
+  type        = map(object({ instance_type = string }))
+  default = {
+    nginx1 = { instance_type = "t2.micro" }
+  }
+}
+
 variable "key_pair_name" {
   description = "The EC2 key pair name."
 }

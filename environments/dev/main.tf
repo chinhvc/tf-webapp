@@ -5,10 +5,11 @@ module "vpc" {
 }
 
 module "web_app" {
-  source           = "../../modules/web_app"
+  source           = "../../modules/web"
   vpc_id           = module.vpc.vpc_id
   public_subnet_id = module.vpc.public_subnet_id
   key_pair_name    = var.key_pair_name
   db_username      = var.db_username
   db_password      = var.db_password
+  instance_count   = 3
 }

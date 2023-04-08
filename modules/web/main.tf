@@ -21,6 +21,7 @@ resource "aws_security_group" "nginx" {
 
 # Create an EC2 instance for the Nginx web server
 resource "aws_instance" "nginx" {
+  count         = var.instance_count
   ami           = data.aws_ami.amazon_linux_2.id # Amazon Linux 2 AMI
   instance_type = var.instance_type
   key_name      = var.key_pair_name
