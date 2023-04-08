@@ -1,0 +1,64 @@
+name: Terraform
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.0.0
+
+    - name: Terraform Init for VPC
+      run: |
+        cd vpc
+        terraform init
+
+    - name: Terraform Validate for VPC
+      run: |
+        cd vpc
+        terraform validate
+
+    - name: Terraform Plan for VPC
+      if: github.event_name == 'pull_request'
+      run: |
+        cd vpc
+        terraform plan
+
+    - name: Terraform Apply for VPC
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        cd vpc
+        terraform apply -auto-approve
+
+    - name: Terraform Init for Web App
+      run: |
+        cd web_app
+        terraform init
+
+    - name: Terraform Validate for Web App
+      run: |
+        cd web_app
+        terraform validate
+
+    - name: Terraform Plan for Web App
+      if: github.event_name == 'pull_request'
+      run: |
+        cd web_app
+        terraform plan
+
+    - name: Terraform Apply for Web App
+      if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      run: |
+        cd web_app
+        terraform apply -auto-approve
