@@ -1,0 +1,6 @@
+aws_region = "us-west-2"
+vpc_cidr_block = "10.0.0.0/16"
+public_subnet_cidr_block = "10.0.1.0/24"
+key_pair_name = "dev-keypair"
+db_username = "dev_db_user"
+db_password = "dev_db_password"
