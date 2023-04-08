@@ -1,5 +1,6 @@
 # Terraform AWS Web App (using private DB)
 
+This repository contains Terraform configuration to deploy a web application using an Nginx web server on an EC2 instance and a private PostgreSQL database on an RDS instance within an AWS VPC.
 
 ## Features
 
