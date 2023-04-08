@@ -10,6 +10,7 @@ func TestVPCModule(t *testing.T) {
 	t.Parallel()
 
 	awsRegion := "us-west-2"
+	uniqueID := random.UniqueId()
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../vpc",
@@ -28,4 +29,11 @@ func TestVPCModule(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Add your assertions here
+	vpcID := terraform.Output(t, terraformOptions, "vpc_id")
+	igwID := terraform.Output(t, terraformOptions, "internet_gateway_id")
+	publicRTID := terraform.Output(t, terraformOptions, "public_route_table_id")
+
+	assert.True(t, aws.IsVpcAvailable(t, vpcID, awsRegion))
+	assert.True(t, aws.IsInternetGatewayAvailable(t, igwID, awsRegion))
+	assert.True(t, aws.IsRouteTableAvailable(t, publicRTID, awsRegion))
 }
